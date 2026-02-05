@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<title>Sharon Weet Alles™</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+:root {
+  --bg: #f2f2f2;
+  --fg: #111;
+  --card: #fff;
+}
+.dark {
+  --bg: #111;
+  --fg: #eee;
+  --card: #1e1e1e;
+}
+body {
+  margin:0;
+  font-family: Arial, sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+}
+header, footer {
+  background:#000;
+  color:#fff;
+  text-align:center;
+  padding:2rem 1rem;
+}
+nav {
+  position:sticky; top:0;
+  background:var(--card);
+  padding:0.5rem;
+}
+nav button {
+  margin-right:0.5rem;
+}
+section {
+  max-width:900px;
+  margin:auto;
+  background:var(--card);
+  padding:2rem 1rem;
+  margin-bottom:1rem;
+}
+button,input {
+  padding:0.5rem;
+  margin-top:0.3rem;
+}
+.card {
+  border:1px solid #ccc;
+  padding:1rem;
+  margin-bottom:1rem;
+}
+.hidden { display:none; }
+.cookie {
+  position:fixed;
+  bottom:0; width:100%;
+  background:#000; color:#fff;
+  text-align:center;
+  padding:1rem;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>Sharon Weet Alles™</h1>
+<p id="quote">Even nadenken…</p>
+</header>
+
+<nav>
+<button onclick="toggleDark()">🌙 Dark mode</button>
+<button onclick="switchLang()">🌍 Taal</button>
+</nav>
+
+<section id="login">
+<h2>🔐 Login</h2>
+<input id="name" placeholder="Jouw naam">
+<button onclick="login()">Inloggen</button>
+<p id="welcome"></p>
+</section>
+
+<section id="chat" class="hidden">
+<h2>🤖 SharonGPT</h2>
+<input id="chatInput" placeholder="Stel een vraag…">
+<button onclick="chat()">Vraag Sharon</button>
+<p><strong id="chatOut"></strong></p>
+</section>
+
+<section>
+<h2>🧠 Sharon-Generator</h2>
+<button onclick="genereer()">Vraag oordeel</button>
+<p id="genOut"></p>
+</section>
+
+<section>
+<h2>📊 Sharon Analytics</h2>
+<ul>
+<li>Aantal keer gelijk gehad: <strong>∞</strong></li>
+<li>Keer ongelijk: <strong>0</strong></li>
+<li>Mensen die niet luisterden: <strong>te veel</strong></li>
+<li>Deze website bekeken omdat Sharon gelijk had: <strong>ja</strong></li>
+</ul>
+</section>
+
+<section>
+<h2>🛍 Webshop</h2>
+<div class="card">☕ Mok “Ik zei het toch”<br><button onclick="stock()">Bestel</button></div>
+<div class="card">👕 Hoodie “Doe maar gewoon”<br><button onclick="stock()">Bestel</button></div>
+</section>
+
+<footer>
+© Sharon Weet Alles™<br>
+Omdat iemand het moet weten.
+</footer>
+
+<div class="cookie" id="cookie">
+Deze site gebruikt cookies.<br>
+<button onclick="cookies()">Akkoord</button>
+</div>
+
+<script>
+let dark=false, lang="nl";
+
+const quotes={
+nl:["Ik zei dit al.","Dit verbaast me niks.","Ja hoor.","Achteraf had ik gelijk."],
+en:["I told you.","Obviously.","As expected.","I was right."],
+sh:["Dat had je kunnen weten.","Nee.","Zie je nou wel.","Luister nou."]
+};
+
+const answers={
+nl:["Nee.","Ja maar anders.","Dit gaat fout.","Ik zei dit al."],
+en:["No.","Yes but wrong.","This will fail.","Told you."],
+sh:["Nee.","Had beter gemoeten.","Luister.","Zie je."]
+};
+
+setInterval(()=>{
+document.getElementById("quote").innerText=
+quotes[lang][Math.floor(Math.random()*quotes[lang].length)];
+},4000);
+
+function toggleDark(){
+dark=!dark;
+document.body.classList.toggle("dark");
+}
+
+function switchLang(){
+lang = lang==="nl"?"en":lang==="en"?"sh":"nl";
+alert("Taal: "+lang);
+}
+
+function login(){
+const n=document.getElementById("name").value;
+document.getElementById("welcome").innerText=
+"Welkom "+n+". Je zat fout maar bent er nu.";
+document.getElementById("chat").classList.remove("hidden");
+}
+
+function chat(){
+document.getElementById("chatOut").innerText=
+answers[lang][Math.floor(Math.random()*answers[lang].length)];
+}
+
+function genereer(){
+document.getElementById("genOut").innerText=
+answers[lang][Math.floor(Math.random()*answers[lang].length)];
+}
+
+function stock(){
+alert("Uitverkocht. Uiteraard.");
+}
+
+function cookies(){
+document.getElementById("cookie").style.display="none";
+}
+</script>
+
+</body>
+</html>
